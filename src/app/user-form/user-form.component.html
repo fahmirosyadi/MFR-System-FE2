@@ -1,0 +1,27 @@
+tes
+<div style="padding: 10px;">
+	<form class="example-form">
+		<mat-form-field>
+			<mat-label>Nama</mat-label>
+			<input matInput placeholder="Please input nama" name="nama" [(ngModel)]="data.nama">
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Username</mat-label>
+			<input matInput placeholder="Please input username" name="username" [(ngModel)]="data.username">
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Email</mat-label>
+			<input matInput placeholder="Please input email" name="email" [(ngModel)]="data.email">
+		</mat-form-field>
+		<mat-form-field>
+			<mat-label>Password</mat-label>
+			<input matInput placeholder="Please input password" name="password" [(ngModel)]="data.password">
+		</mat-form-field>
+	
+		<mat-form-field>
+			<mat-label>Leave a comment</mat-label>
+			<textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+		</mat-form-field>
+		<button mat-mini-fab color="primary" (click)="save()">Save</button>
+	</form>
+</div>
