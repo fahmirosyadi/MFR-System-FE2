@@ -9,16 +9,11 @@ export const routes: Routes = [
     {
         component: PageComponent, path: pageUrl, children: [
             {
-                component: MyTableComponent, path: "", children: [
-                    {
-                        component: UserComponent, path: 'user'
-                    },
-                    {
-                        component: RoleComponent, path: 'role'
-                    }
-                ]
+                component: UserComponent, path: 'user'
             },
-            
+            {
+                component: RoleComponent, path: 'role'
+            }
         ]
     }
 ];

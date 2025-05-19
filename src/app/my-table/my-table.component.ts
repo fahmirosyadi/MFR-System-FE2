@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, Input, ViewChild } from '@angular/core';
 import { CommonService } from '../services/common.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UserFormComponent } from '../user-form/user-form.component';
@@ -9,6 +9,7 @@ import { MatIcon } from '@angular/material/icon';
 import { ActionButtonsComponent } from '../action-buttons/action-buttons.component';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-table',
@@ -20,41 +21,57 @@ import { RouterOutlet } from '@angular/router';
     MatDialogModule,
     ActionButtonsComponent,
     RouterOutlet,
+    CommonModule
   ],
   templateUrl: './my-table.component.html',
   styles: ``
 })
 export class MyTableComponent {
 
+  @Input() url: string = "";
+  @Input() form: any;
+  @Input() displayedColumns: string[] = [];
+
   public _liveAnnouncer = inject(LiveAnnouncer);
   public dataSource = new MatTableDataSource([]);
-  public url = "";
-  public displayedColumns: string[] = [];
+  public columns: string[] = [];
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   constructor(public cs: CommonService, public dialog: MatDialog) { 
+
   }
 
-  getFormComponent() {
-    return UserFormComponent
-  }
-
-  async refresh() {
-    let users = await this.cs.get(this.url);
-    this.dataSource.data = users;
-    // this.dataSource.sort = this.sort;
-  }
-
-  async ngAfterViewInit() {
+  ngOnInit(): void {
+    this.columns = [...this.displayedColumns];
+    this.displayedColumns.unshift("no")
+    this.displayedColumns.push("symbol")
+    console.log(this.displayedColumns)
     this.refresh();
   }
+  
+  async ngAfterViewInit() {
+  }
+  
+  async refresh() {
+    this.dataSource.data = await this.cs.get(this.url);
+    this.dataSource.sort = this.sort;
+  }
+  
+  delete = (data: any) => {
+    let self = this;
+    this.cs.delete(this.url + "/" + data.id, async () => {
+      this.refresh();
+    })    
+  }
 
-  getUrl() {
-
+  generateLabel = (str: any) => {
+    str = str.replace(/([A-Z])/g, ' $1').trim();
+    str = str.charAt(0).toUpperCase() + str.slice(1);
+    return (str)
   }
 
   openDialog(data: any){
-    const dialogRef = this.dialog.open(this.getFormComponent(), {
+    const dialogRef = this.dialog.open(this.form, {
       width: '250px',
       data: data
     });
@@ -64,10 +81,6 @@ export class MyTableComponent {
     });
   };
 
-  delete = (data: any) => {
-    this.cs.delete(this.getUrl() + "/" + data.id, this.refresh)    
-  }
-  
   /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports

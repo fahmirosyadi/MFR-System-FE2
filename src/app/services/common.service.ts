@@ -35,7 +35,6 @@ export abstract class CommonService {
           //   'success'
           // )
         }
-        alert("tes")
         return result.data;
         
       } else if (result.status == 403) {
