@@ -10,6 +10,7 @@ import { ActionButtonsComponent } from '../action-buttons/action-buttons.compone
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AppFormComponent } from '../app-form/app-form.component';
 
 @Component({
   selector: 'app-table',
@@ -29,12 +30,14 @@ import { CommonModule } from '@angular/common';
 export class MyTableComponent {
 
   @Input() url: string = "";
-  @Input() form: any;
-  @Input() displayedColumns: string[] = [];
+  @Input() form: any = AppFormComponent;
+  @Input() cols: string[] = [];
+
+  public displayedColumns: string[] = [];
 
   public _liveAnnouncer = inject(LiveAnnouncer);
   public dataSource = new MatTableDataSource([]);
-  public columns: string[] = [];
+  public columns: any = [];
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   constructor(public cs: CommonService, public dialog: MatDialog) { 
@@ -42,7 +45,20 @@ export class MyTableComponent {
   }
 
   ngOnInit(): void {
-    this.columns = [...this.displayedColumns];
+    this.cols.forEach(obj => {
+      let col = '';
+      let type = 'text';
+      if(!obj.includes(":")){
+        col = obj
+      }else{
+        col = obj.split(":")[0];
+        type = obj.split(":")[1];
+      }
+      if(type != 'hidden' && type != 'password'){
+        this.displayedColumns.push(col);
+      }
+      this.columns.push({col: col, type: type})
+    })
     this.displayedColumns.unshift("no")
     this.displayedColumns.push("symbol")
     console.log(this.displayedColumns)
@@ -73,7 +89,11 @@ export class MyTableComponent {
   openDialog(data: any){
     const dialogRef = this.dialog.open(this.form, {
       width: '250px',
-      data: data
+      data: { 
+        columns: this.columns,
+        url: this.url,
+        data: data
+      }
     });
 
     dialogRef.afterClosed().subscribe(() => {
