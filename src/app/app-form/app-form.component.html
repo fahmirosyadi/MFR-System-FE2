@@ -1,0 +1,9 @@
+<div style="padding: 10px;">
+	<form class="example-form">
+		<mat-form-field *ngFor="let c of data.columns">
+			<mat-label>{{c.col}}</mat-label>
+			<input [type]="c.type" matInput placeholder="Please input {{c.col}}" name="{{c.col}}" [(ngModel)]="data.data[c.col]">
+		</mat-form-field>
+		<button mat-mini-fab color="primary" (click)="save()">Save</button>
+	</form>
+</div>
