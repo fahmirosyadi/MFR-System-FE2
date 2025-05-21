@@ -6,6 +6,7 @@ import { RoleComponent } from './role/role.component';
 import { MyTableComponent } from './my-table/my-table.component';
 import { GenreComponent } from './genre/genre.component';
 import { SongComponent } from './song/song.component';
+import { SongFormComponent } from './song-form/song-form.component';
 
 export const routes: Routes = [
     {
@@ -21,6 +22,9 @@ export const routes: Routes = [
             },
             {
                 component: SongComponent, path: 'song'
+            },
+            {
+                component: SongFormComponent, path: 'song/form'
             }
         ]
     }

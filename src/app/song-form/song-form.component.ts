@@ -1,0 +1,10 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-song-form',
+  imports: [],
+  templateUrl: './song-form.component.html'
+})
+export class SongFormComponent {
+
+}
