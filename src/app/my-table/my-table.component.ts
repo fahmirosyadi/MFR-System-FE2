@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ActionButtonsComponent } from '../action-buttons/action-buttons.component';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AppFormComponent } from '../app-form/app-form.component';
 
@@ -31,6 +31,7 @@ export class MyTableComponent {
 
   @Input() url: string = "";
   @Input() form: any = AppFormComponent;
+  @Input() modal = true;
   @Input() cols: string[] = [];
 
   public displayedColumns: string[] = [];
@@ -40,7 +41,7 @@ export class MyTableComponent {
   public columns: any = [];
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
-  constructor(public cs: CommonService, public dialog: MatDialog) { 
+  constructor(public cs: CommonService, public dialog: MatDialog, public router: Router) { 
 
   }
 
@@ -87,18 +88,22 @@ export class MyTableComponent {
   }
 
   openDialog(data: any){
-    const dialogRef = this.dialog.open(this.form, {
-      width: '250px',
-      data: { 
-        columns: this.columns,
-        url: this.url,
-        data: data
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.refresh(); // Call refresh after dialog is closed
-    });
+    if(this.modal){
+      const dialogRef = this.dialog.open(this.form, {
+        width: '250px',
+        data: { 
+          columns: this.columns,
+          url: this.url,
+          data: data
+        }
+      });
+  
+      dialogRef.afterClosed().subscribe(() => {
+        this.refresh(); // Call refresh after dialog is closed
+      });
+    }else{
+      this.router.navigateByUrl(this.url + "/form");
+    }
   };
 
   /** Announce the change in sort state for assistive technology. */
