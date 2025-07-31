@@ -1,11 +1,11 @@
 import { Component} from '@angular/core';
 import { RoleFormComponent } from '../role-form/role-form.component';
-import { MyTableComponent } from '../my-table/my-table.component';
+import { SharedModule } from '../shared.module';
 
 @Component({
   selector: 'app-role',
   templateUrl: './role.component.html', 
-  imports: [MyTableComponent]
+  imports: [SharedModule]
 })
 export class RoleComponent {
   

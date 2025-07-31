@@ -1,1 +1,6 @@
-<p>song-form works!</p>
+<mat-label style="margin-right: 20px;">{{data.song}}</mat-label>
+<button mat-mini-fab color="primary" (click)="save()">Save</button>
+<mat-form-field style="width: 100%; margin-top: 10px;">
+  <mat-label>Textarea</mat-label>
+  <textarea matInput [(ngModel)]="data.chord" style="height: 1000px;"></textarea>
+</mat-form-field>

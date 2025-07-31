@@ -5,8 +5,9 @@
 	<span style="margin-right: 20px;">MFR System</span>
 	<button mat-button [matMenuTriggerFor]="menu">Master</button>
 	<mat-menu #menu="matMenu">
-		<button mat-menu-item routerLink="/{{ page }}/user">User</button>
+		<button mat-menu-item routerLink="/{{ page }}/menu">Menu</button>
 		<button mat-menu-item routerLink="/{{ page }}/role">Role</button>
+		<button mat-menu-item routerLink="/{{ page }}/user">User</button>
 		<button mat-menu-item routerLink="/{{ page }}/genre">Genre</button>
 		<button mat-menu-item routerLink="/{{ page }}/song">Song</button>
 	</mat-menu>

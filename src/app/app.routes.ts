@@ -4,6 +4,7 @@ import { pageUrl } from '../environments/environment';
 import { UserComponent } from './user/user.component';
 import { RoleComponent } from './role/role.component';
 import { MyTableComponent } from './my-table/my-table.component';
+import { MenuComponent } from './menu/menu.component';
 import { GenreComponent } from './genre/genre.component';
 import { SongComponent } from './song/song.component';
 import { SongFormComponent } from './song-form/song-form.component';
@@ -16,6 +17,10 @@ export const routes: Routes = [
             },
             {
                 component: RoleComponent, path: 'role'
+            },
+            {
+                
+                component: MenuComponent, path: 'menu'
             },
             {
                 component: GenreComponent, path: 'genre'
