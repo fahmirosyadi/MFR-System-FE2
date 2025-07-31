@@ -160,4 +160,59 @@ export abstract class CommonService {
     return res;
   }
 
+  getSheetData = ( query = "", callback: any, sheetName = "", sheetID = "1xoh3h3ib52vkC15PkJ_Rx8PxnflCDowrZ1e17gOS2jA") => {
+    const base = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?`;
+    const url = `${base}&sheet=${encodeURIComponent(
+      sheetName
+    )}&tq=${encodeURIComponent(query)}`;
+
+    fetch(url)
+      .then((res) => res.text())
+      .then((response) => {
+        callback(responseToObjects(response));
+      });
+
+    function responseToObjects(res: any) {
+      // credit to Laurence Svekis https://www.udemy.com/course/sheet-data-ajax/
+      const jsData = JSON.parse(res.substring(47).slice(0, -2));
+      let data = [];
+      const columns = jsData.table.cols;
+      const rows = jsData.table.rows;
+      let rowObject: any;
+      let cellData;
+      let propName = [];
+      for (let r = 0, rowMax = rows.length; r < rowMax; r++) {
+        rowObject = {};
+        for (let c = 0, colMax = columns.length; c < colMax; c++) {
+          if(r == 0){
+            propName.push(rows[r]["c"][c].v.toLowerCase());
+          }else{
+            cellData = rows[r]["c"][c];
+            if (cellData === null) {
+              rowObject[propName[c]] = "";
+            } else if (
+              typeof cellData["v"] == "string" &&
+              cellData["v"].startsWith("Date")
+            ) {
+              rowObject[propName[c]] = new Date(cellData["f"]);
+            } else {
+              rowObject[propName[c]] = cellData["v"];
+            }
+          }
+        }
+        if( r > 0) { // Skip the first row which is the header
+          data.push(rowObject);
+        }
+      }
+      return data;
+    }
+  };
+
+  stripHtml(html: any)
+  {
+    let tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return (tmp.textContent || tmp.innerText || "").trim();
+  }
+
 }

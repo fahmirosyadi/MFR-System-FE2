@@ -32,7 +32,7 @@ export class PageComponent {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log(this.route.snapshot.url[this.route.snapshot.url.length - 1]);
+    // console.log(this.route.snapshot.url[this.route.snapshot.url.length - 1]);
   }
 
 }
