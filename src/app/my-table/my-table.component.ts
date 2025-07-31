@@ -102,7 +102,15 @@ export class MyTableComponent {
         this.refresh(); // Call refresh after dialog is closed
       });
     }else{
-      this.router.navigateByUrl(this.url + "/form");
+      this.router.navigateByUrl(this.url + "/form", { 
+        state: { 
+          data: { 
+            columns: this.columns,
+            url: this.url,
+            data: data
+          }
+        } 
+      });
     }
   };
 
