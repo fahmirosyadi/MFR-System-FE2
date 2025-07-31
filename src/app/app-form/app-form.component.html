@@ -1,6 +1,6 @@
 <div style="padding: 10px;">
   <form class="example-form">
-    <mat-form-field *ngFor="let c of data.columns">
+    <mat-form-field *ngFor="let c of data.columns" style="width: 100%;">
       <mat-label>{{generateLabel(c.col)}}</mat-label>
       <input *ngIf="!c.data" [type]="c.type" matInput placeholder="Please input {{c.col}}" name="{{c.col}}" [(ngModel)]="data.data[c.col]">
       <mat-select *ngIf="c.data" [(ngModel)]="data.data[c.col]" name="{{c.col}}" multiple>

@@ -4,6 +4,7 @@ import { pageUrl } from '../environments/environment';
 import { UserComponent } from './user/user.component';
 import { RoleComponent } from './role/role.component';
 import { MyTableComponent } from './my-table/my-table.component';
+import { MenuComponent } from './menu/menu.component';
 
 export const routes: Routes = [
     {
@@ -13,6 +14,9 @@ export const routes: Routes = [
             },
             {
                 component: RoleComponent, path: 'role'
+            },
+            {
+                component: MenuComponent, path: 'menu'
             }
         ]
     }

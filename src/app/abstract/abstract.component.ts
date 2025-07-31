@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-abstract',
-  imports: [],
   templateUrl: './abstract.component.html'
 })
 export class AbstractComponent {

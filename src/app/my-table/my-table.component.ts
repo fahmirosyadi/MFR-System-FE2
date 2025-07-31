@@ -104,11 +104,11 @@ export class MyTableComponent extends AbstractComponent {
     await this.setDataSource();
     if(this.modal){
       const dialogRef = this.dialog.open(this.form, {
-        width: '250px',
+        width: '400px',
         data: { 
           columns: this.columns,
           url: this.url,
-          data: data
+          data: data,
         }
       });
   
