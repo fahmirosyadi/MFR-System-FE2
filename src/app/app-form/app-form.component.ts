@@ -6,7 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
+import { AbstractComponent } from '../abstract/abstract.component';
 
 @Component({
   selector: 'app-app-form',
@@ -16,13 +18,13 @@ import { CommonModule } from '@angular/common';
     MatLabel, 
     FormsModule,
     MatButtonModule,
-    CommonModule
+    CommonModule,
+    MatSelectModule
   ],
   templateUrl: './app-form.component.html',
   styles: ``
 })
-export class AppFormComponent {
-  
+export class AppFormComponent extends AbstractComponent {
 
   constructor(
     private cs: CommonService, 
@@ -30,7 +32,8 @@ export class AppFormComponent {
     private router: Router,
     public dialogRef: MatDialogRef<AppFormComponent>
   ){
-    console.log(data)
+    super();
+    console.log(this.data.columns)
   }
 
   save = () => {

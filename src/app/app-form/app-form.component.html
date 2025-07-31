@@ -1,9 +1,12 @@
 <div style="padding: 10px;">
-	<form class="example-form">
-		<mat-form-field *ngFor="let c of data.columns">
-			<mat-label>{{c.col}}</mat-label>
-			<input [type]="c.type" matInput placeholder="Please input {{c.col}}" name="{{c.col}}" [(ngModel)]="data.data[c.col]">
-		</mat-form-field>
-		<button mat-mini-fab color="primary" (click)="save()">Save</button>
-	</form>
+  <form class="example-form">
+    <mat-form-field *ngFor="let c of data.columns">
+      <mat-label>{{generateLabel(c.col)}}</mat-label>
+      <input *ngIf="!c.data" [type]="c.type" matInput placeholder="Please input {{c.col}}" name="{{c.col}}" [(ngModel)]="data.data[c.col]">
+      <mat-select *ngIf="c.data" [(ngModel)]="data.data[c.col]" name="{{c.col}}" multiple>
+        <mat-option *ngFor="let option of c.data" [value]="option">{{option.label}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-mini-fab color="primary" (click)="save()">Save</button>
+  </form>
 </div>
