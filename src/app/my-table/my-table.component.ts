@@ -11,6 +11,8 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AppFormComponent } from '../app-form/app-form.component';
+import { AbstractComponent } from '../abstract/abstract.component';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
   selector: 'app-table',
@@ -27,7 +29,7 @@ import { AppFormComponent } from '../app-form/app-form.component';
   templateUrl: './my-table.component.html',
   styles: ``
 })
-export class MyTableComponent {
+export class MyTableComponent extends AbstractComponent {
 
   @Input() url: string = "";
   @Input() form: any = AppFormComponent;
@@ -41,12 +43,23 @@ export class MyTableComponent {
   public columns: any = [];
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
-  constructor(public cs: CommonService, public dialog: MatDialog, public router: Router) { 
-
+  constructor(public cs: CommonService, public dialog: MatDialog, public router: Router, private dialogService: DialogService) {
+    super();
   }
 
   ngOnInit(): void {
-    this.cols.forEach(obj => {
+    this.setCols();
+    this.displayedColumns.unshift("no")
+    this.displayedColumns.push("symbol")
+    console.log(this.displayedColumns)
+    this.refresh();
+  }
+  
+  async ngAfterViewInit() {
+  }
+
+  setCols() {
+    this.cols.forEach(async obj => {
       let col = '';
       let type = 'text';
       if(!obj.includes(":")){
@@ -60,13 +73,15 @@ export class MyTableComponent {
       }
       this.columns.push({col: col, type: type})
     })
-    this.displayedColumns.unshift("no")
-    this.displayedColumns.push("symbol")
-    console.log(this.displayedColumns)
-    this.refresh();
   }
-  
-  async ngAfterViewInit() {
+
+  async setDataSource() {
+    for(let i = 0; i < this.columns.length; i++){
+      if(this.columns[i].type[0] == this.columns[i].type[0].toUpperCase()){
+        this.columns[i].data = await this.cs.get(this.columns[i].type.toLocaleLowerCase());
+        console.log(this.columns[i].data);
+      }
+    }
   }
   
   async refresh() {
@@ -76,25 +91,24 @@ export class MyTableComponent {
   
   delete = (data: any) => {
     let self = this;
-    this.cs.delete(this.url + "/" + data.id, async () => {
-      this.refresh();
-    })    
+    this.dialogService.confirm('Are you sure you want to delete?').subscribe((result: any) => {
+      if (result) {
+        this.cs.delete(this.url + "/" + data.id, async () => {
+          this.refresh();
+        })
+      }
+    });    
   }
 
-  generateLabel = (str: any) => {
-    str = str.replace(/([A-Z])/g, ' $1').trim();
-    str = str.charAt(0).toUpperCase() + str.slice(1);
-    return (str)
-  }
-
-  openDialog(data: any){
+  async openDialog(data: any){
+    await this.setDataSource();
     if(this.modal){
       const dialogRef = this.dialog.open(this.form, {
-        width: '250px',
+        width: '400px',
         data: { 
           columns: this.columns,
           url: this.url,
-          data: data
+          data: data,
         }
       });
   

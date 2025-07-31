@@ -2,27 +2,33 @@ import { Component, Inject, Input } from '@angular/core';
 import { CommonService } from '../services/common.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
+import { AbstractComponent } from '../abstract/abstract.component';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTreeModule} from '@angular/material/tree';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-app-form',
   imports: [
-    MatFormFieldModule, 
-    MatInputModule, 
+    CommonModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTreeModule,
+    MatFormFieldModule,
     MatLabel, 
     FormsModule,
-    MatButtonModule,
-    CommonModule
+    MatSelectModule
   ],
   templateUrl: './app-form.component.html',
   styles: ``
 })
-export class AppFormComponent {
-  
+export class AppFormComponent extends AbstractComponent {
 
   constructor(
     private cs: CommonService, 
@@ -30,7 +36,8 @@ export class AppFormComponent {
     private router: Router,
     public dialogRef: MatDialogRef<AppFormComponent>
   ){
-    console.log(data)
+    super();
+    console.log(this.data.columns)
   }
 
   save = () => {
