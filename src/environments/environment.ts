@@ -6,7 +6,7 @@ export const environment = {
   production: false
 };
   
-export const baseUrl = "http://103.197.191.31:9090/api/";
+export const baseUrl = "https://103.197.191.31:9090/api/";
 
 export const pageUrl = "";
   
