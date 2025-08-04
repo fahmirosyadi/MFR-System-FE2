@@ -6,9 +6,10 @@ import { MyTableComponent } from './my-table/my-table.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTreeModule} from '@angular/material/tree';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 
 // other imports...
 
@@ -23,7 +24,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatLabel, 
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardContent,
+    ReactiveFormsModule
   ],
   exports: [
     CommonModule,
@@ -34,7 +40,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatTreeModule,
     MatLabel, 
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardContent,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule {}

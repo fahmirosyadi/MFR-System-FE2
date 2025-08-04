@@ -5,6 +5,7 @@ import { UserComponent } from './user/user.component';
 import { RoleComponent } from './role/role.component';
 import { MyTableComponent } from './my-table/my-table.component';
 import { MenuComponent } from './menu/menu.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     {
@@ -19,5 +20,8 @@ export const routes: Routes = [
                 component: MenuComponent, path: 'menu'
             }
         ]
+    },
+    {
+        component: LoginComponent, path: 'login'
     }
 ];
