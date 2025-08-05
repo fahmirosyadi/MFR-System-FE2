@@ -163,7 +163,7 @@ export abstract class CommonService {
   }
 
   login = async (data: any) => {
-    let result = await this.post(data, "login", 0);
+    let result = await this.post(data, "user/login", 0);
     if (result.status == false) {
       alert(result.messages);
     } else {
@@ -173,6 +173,11 @@ export abstract class CommonService {
       alert(result.messages);
       this.router.navigate([""]);
     }
+  }
+
+  logout = () => {
+    sessionStorage.clear();
+    this.router.navigate(["login"]);
   }
 
 }

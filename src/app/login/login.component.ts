@@ -12,7 +12,7 @@ import { CommonService } from '../services/common.service';
 export class LoginComponent {
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
-    password: new FormControl('', Validators.required)
+    password: new FormControl('')
   });
 
   constructor(public cs: CommonService) { }

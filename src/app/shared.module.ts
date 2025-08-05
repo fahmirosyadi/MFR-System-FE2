@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 // other imports...
 
@@ -40,7 +41,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatCardTitle,
     MatCardContent,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSlideToggleModule
   ],
   exports: [
     CommonModule,
@@ -57,7 +59,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatCardTitle,
     MatCardContent,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSlideToggleModule
   ]
 })
 export class SharedModule {}

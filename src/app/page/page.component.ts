@@ -32,6 +32,9 @@ export class PageComponent {
 
   page = pageUrl
   title = "";
+  public user: any;
+  public theme = "theme-dark";
+  public isDarkMode = true;
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
@@ -42,10 +45,16 @@ export class PageComponent {
     ).subscribe((event: NavigationEnd) => {
       this.title = document.title + this.getDetailTitle();
     });
+
+    this.user = { username: "" }
+    this.user = JSON.parse(sessionStorage.getItem("user")!);
   }
 
   getDetailTitle = () => {
-    return " / " + this.router.url[1].toUpperCase() + this.router.url.substring(2);
+    if(this.router.url[1]){
+      return " / " + this.router.url[1].toUpperCase() + this.router.url.substring(2);
+    }
+    return "";
   }
 
 }

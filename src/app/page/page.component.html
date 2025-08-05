@@ -1,4 +1,4 @@
-<div class="theme theme-dark">
+<div [ngClass]="'theme ' + (isDarkMode ? 'theme-dark' : 'theme-light')">
 	<mat-toolbar color="primary">
 		<button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
 			<mat-icon>menu</mat-icon>
@@ -11,12 +11,16 @@
 			<button mat-menu-item routerLink="/{{ page }}/user">User</button>
 		</mat-menu>
 		<span class="example-spacer"></span>
+		<p><mat-slide-toggle [(ngModel)]="isDarkMode">Dark Mode</mat-slide-toggle></p>
 		<button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
 			<mat-icon>favorite</mat-icon>
 		</button>
 		<button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
 			<mat-icon>share</mat-icon>
 		</button>
+		<div class="info">
+			<a href="#" class="d-block">{{user != null ? user.username : ''}}</a>
+		</div>
 	</mat-toolbar>
 	
 	<div class="container" color="primary">
