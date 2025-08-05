@@ -1,4 +1,5 @@
 <div style="padding: 10px;">
+  <h2 mat-dialog-title>{{ title }}</h2>
   <form class="example-form">
     <mat-form-field *ngFor="let c of data.columns" style="width: 100%;">
       <mat-label>{{generateLabel(c.col)}}</mat-label>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SharedModule } from '../shared.module';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +11,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent {
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    username: new FormControl('', [Validators.required]),
     password: new FormControl('', Validators.required)
   });
 
-  constructor() { }
+  constructor(public cs: CommonService) { }
 
   ngOnInit(): void {
   }
@@ -22,5 +23,6 @@ export class LoginComponent {
   login(): void {
     // Login logic here
     console.log(this.loginForm.value);
+    this.cs.login(this.loginForm.value);
   }
 }

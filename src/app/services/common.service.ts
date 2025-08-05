@@ -7,6 +7,8 @@ import { baseUrl } from '../../environments/environment';
 })
 export abstract class CommonService {
 
+  public title = "";
+
   constructor(public router: Router) { }
 
   customFetch = (url: any, header: any, method: string, action:any = null) => {
@@ -158,6 +160,19 @@ export abstract class CommonService {
       // }
     // })
     return res;
+  }
+
+  login = async (data: any) => {
+    let result = await this.post(data, "login", 0);
+    if (result.status == false) {
+      alert(result.messages);
+    } else {
+      sessionStorage.setItem("user", JSON.stringify(result.data.user));
+      console.log(result.data.user);
+      sessionStorage.setItem("token", result.data.token);
+      alert(result.messages);
+      this.router.navigate([""]);
+    }
   }
 
 }

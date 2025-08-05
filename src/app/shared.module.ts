@@ -10,10 +10,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // other imports...
 
 @NgModule({
+  providers: [
+    { 
+      provide: MAT_DIALOG_DEFAULT_OPTIONS, 
+      useValue: { 
+        panelClass: 'theme-dark' 
+      } 
+    }
+  ],
   imports: [
     CommonModule,
     MatInputModule,
@@ -29,7 +39,8 @@ import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/m
     MatCardHeader,
     MatCardTitle,
     MatCardContent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     CommonModule,
@@ -45,7 +56,8 @@ import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/m
     MatCardHeader,
     MatCardTitle,
     MatCardContent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule {}

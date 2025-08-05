@@ -1,8 +1,17 @@
 @use '@angular/material' as mat;
 
-.theme-light {
-  color-scheme: light;
+.theme {
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
 	height: 100vh;
+}
+
+.theme-dark .mat-mdc-dialog-container {
+  border: 1px solid #333;
+  color: var(--mat-sys-on-surface);
+}
+
+.theme-light {
   @include mat.theme((
     color: (
 			primary: mat.$orange-palette,
@@ -15,11 +24,9 @@
 }
 
 .theme-dark {
-	background-color: #161717;
-	height: 100vh;
   @include mat.theme((
     color: (
-			primary: mat.$orange-palette,
+			primary: mat.$rose-palette,
       // accent: mat.$amber-palette,
       // warn: mat.$red-palette,
 			theme-type: dark,
@@ -28,7 +35,6 @@
     density: 0,
   ));
 }
-
 
 // $red-palette
 // $green-palette
@@ -42,3 +48,19 @@
 // $azure-palette
 // $violet-palette
 // $rose-palette
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.success {
+  background-color: #28a745 !important; /* Bootstrap's success color */
+  // color: #fff;
+}
