@@ -1,1 +1,43 @@
-<app-table [cols]="['name', 'url','sort','icon']" [url]="'menu'"></app-table>
+<!-- <app-table [cols]="['name', 'url','sort','icon']" [url]="'menu'"></app-table> -->
+<button (click)="openDialog({})" color="primary" mat-mini-fab aria-label="Example icon button with a delete icon" style="margin-bottom: 10px;">
+	<mat-icon>add</mat-icon>
+</button>
+<mat-tree #tree [dataSource]="dataSource" [childrenAccessor]="childrenAccessor">
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+		<button matIconButton disabled></button>
+		<div class="tree-action">
+			<span>
+				<mat-icon (click)="openDialog(node)">add</mat-icon>
+			</span>
+			<span>
+				<mat-icon (click)="openDialog(node)">edit</mat-icon>
+			</span>
+			<span>
+				<mat-icon (click)="delete(node)">delete</mat-icon>
+			</span>
+		</div>
+    <span style="width: 300px;">
+			{{node.name}}
+		</span>
+  </mat-tree-node>
+  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding matTreeNodeToggle
+	[cdkTreeNodeTypeaheadLabel]="node.name">
+		<button matIconButton matTreeNodeToggle
+			[attr.aria-label]="'Toggle ' + node.name">
+		</button>
+		<div class="tree-action">
+			<span>
+				<mat-icon (click)="openDialog(node)">add</mat-icon>
+			</span>
+			<span>
+				<mat-icon (click)="openDialog(node)">edit</mat-icon>
+			</span>
+			<span>
+				<mat-icon (click)="delete(node)">delete</mat-icon>
+			</span>
+		</div>
+		<span style="width: 300px;">
+			{{node.name}}
+		</span>
+  </mat-tree-node>
+</mat-tree>
