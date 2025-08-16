@@ -27,8 +27,8 @@ export class MenuComponent extends AbstractComponent implements OnInit{
     super();
   }
 
-  async ngOnInit(): Promise<void> {
-    this.dataSource = await this.cs.get(this.url);
+  ngOnInit(): void {
+    this.refresh();
   }
 
   childrenAccessor = (node: FoodNode) => node.children ?? [];
@@ -36,7 +36,8 @@ export class MenuComponent extends AbstractComponent implements OnInit{
   hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
 
   async refresh() {
-    // this.dataSource.data = await this.cs.get(this.url);
+    let tes = await this.cs.get(this.url);
+    this.dataSource = tes;
   }
 
   async openDialog(data: any){
@@ -54,18 +55,18 @@ export class MenuComponent extends AbstractComponent implements OnInit{
   };
 
   add(data: any){
-    
+    this.openDialog(data);
   }
 
   delete = (data: any) => {
-    // let self = this;
-    // this.dialogService.confirm('Are you sure you want to delete?').subscribe((result: any) => {
-    //   if (result) {
-    //     this.cs.delete(this.url + "/" + data.id, async () => {
-    //       this.refresh();
-    //     })
-    //   }
-    // });    
+    let self = this;
+    this.dialogService.confirm('Are you sure you want to delete?').subscribe((result: any) => {
+      if (result) {
+        this.cs.delete(this.url + "/" + data.id, async () => {
+          this.refresh();
+        })
+      }
+    });    
   }
 
 }
