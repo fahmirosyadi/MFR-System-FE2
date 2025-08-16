@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MyTableComponent } from '../my-table/my-table.component';
 import { SongFormComponent } from '../song-form/song-form.component';
 import { CommonService } from '../services/common.service';
+import { SharedModule } from '../shared.module';
 
 @Component({
   selector: 'app-song',
-  imports: [MyTableComponent],
+  imports: [MyTableComponent, SharedModule],
   templateUrl: './song.component.html',
   styles: ``
 })
@@ -18,27 +19,6 @@ export class SongComponent implements OnInit {
     
   }
   
-  getSingers(query: string, callback: any) {
-    this.cs.getSheetData(query, callback, "Singers");
-  }
-
-  getSongs(query: string, callback: any) {
-    this.cs.getSheetData(query, (data: any) => {
-      let result = "";
-      data.forEach((item: any) => {
-        result += item.name;
-      });
-      callback(this.parseSongs(result));
-    }, "Songs");
-  }
-
-  async getAllSongs() {
-    let result = await this.getSongs("select *", (data: any) => {
-      return data;
-    });
-    return result;
-  }
-
   parseSongs(songs: any) {
     let songData: any = [];
     let songList = songs.split("[End]")
@@ -98,11 +78,19 @@ export class SongComponent implements OnInit {
     })
     return songData;
   }
-  
+
+  getData = (callback: any) => {
+    this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
+      this.data = this.parseSongs(data);
+      console.log(this.data);
+      callback(this.data);
+    });
+  }
+
   ngOnInit(): void {
-    this.getSongs("select *", (data: any) => {
-      console.log(data);
-      this.data = data;
+    this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
+      this.data = this.parseSongs(data);
+      console.log(this.data);
     });
   }
   

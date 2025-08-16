@@ -210,6 +210,17 @@ export abstract class CommonService {
     }
   };
 
+  
+  getSheet(query: string, sheetName: string, callback: any) {
+    this.getSheetData(query, (data: any) => {
+      let result = "";
+      data.forEach((item: any) => {
+        result += item.name;
+      });
+      callback(result);
+    }, sheetName);
+  }
+
   stripHtml(html: any)
   {
     let tmp = document.createElement("DIV");

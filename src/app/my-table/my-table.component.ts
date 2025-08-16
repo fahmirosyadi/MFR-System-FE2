@@ -35,6 +35,7 @@ export class MyTableComponent extends AbstractComponent {
   @Input() form: any = AppFormComponent;
   @Input() modal = true;
   @Input() cols: string[] = [];
+  @Input() getData: any;
 
   public displayedColumns: string[] = [];
 
@@ -85,8 +86,16 @@ export class MyTableComponent extends AbstractComponent {
   }
   
   async refresh() {
-    this.dataSource.data = await this.cs.get(this.url);
-    this.dataSource.sort = this.sort;
+    console.log("tes")
+    if(this.url != ""){
+      this.dataSource.data = await this.cs.get(this.url);
+      this.dataSource.sort = this.sort;
+    }else if(this.getData != null){
+      this.getData((data: any) => {
+        this.dataSource.data = data;
+        this.dataSource.sort = this.sort;
+      });
+    }
   }
   
   delete = (data: any) => {
