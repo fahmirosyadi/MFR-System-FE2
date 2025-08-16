@@ -1,5 +1,5 @@
 /* @import '@angular/material/prebuilt-themes/deeppurple-amber.css'; */
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+/* @import '@angular/material/prebuilt-themes/pink-bluegrey.css'; */
 
 /* Other Option Colour
 1. deeppurple-amber.css
@@ -8,18 +8,3 @@
 4. purple-green.css */
 
 /* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-.container {
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: 20px;
-}
-
-.success {
-  background-color: #28a745 !important; /* Bootstrap's success color */
-  color: #fff;
-}

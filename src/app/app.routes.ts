@@ -8,6 +8,7 @@ import { MenuComponent } from './menu/menu.component';
 import { GenreComponent } from './genre/genre.component';
 import { SongComponent } from './song/song.component';
 import { SongFormComponent } from './song-form/song-form.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     {
@@ -32,5 +33,8 @@ export const routes: Routes = [
                 component: SongFormComponent, path: 'song/form'
             }
         ]
+    },
+    {
+        component: LoginComponent, path: 'login'
     }
 ];

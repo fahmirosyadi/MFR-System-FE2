@@ -6,13 +6,25 @@ import { MyTableComponent } from './my-table/my-table.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTreeModule} from '@angular/material/tree';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 // other imports...
 
 @NgModule({
+  providers: [
+    { 
+      provide: MAT_DIALOG_DEFAULT_OPTIONS, 
+      useValue: { 
+        panelClass: 'theme-dark' 
+      } 
+    }
+  ],
   imports: [
     CommonModule,
     MatInputModule,
@@ -23,7 +35,14 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatLabel, 
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardContent,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule
   ],
   exports: [
     CommonModule,
@@ -34,7 +53,14 @@ import { MatSelectModule } from '@angular/material/select';
     MatTreeModule,
     MatLabel, 
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardContent,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule
   ]
 })
 export class SharedModule {}

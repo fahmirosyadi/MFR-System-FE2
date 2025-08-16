@@ -2,11 +2,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
-import { ActivatedRoute, RouterModule, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import {ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import { pageUrl } from '../../environments/environment';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CommonService } from '../services/common.service';
+import { filter, Subscription } from 'rxjs';
+import { SharedModule } from '../shared.module';
 
 @Component({
   selector: 'app-page',
@@ -18,7 +20,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     RouterOutlet,
     MatCardModule,
     RouterModule,
-    MatProgressSpinnerModule
+    SharedModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './page.component.html',
@@ -26,13 +28,33 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 })
 export class PageComponent {
 
-  title = "Home"
-  page = pageUrl
+  private routerSubscription!: Subscription;
 
-  constructor(private route: ActivatedRoute) { }
+  page = pageUrl
+  title = "";
+  public user: any;
+  public theme = "theme-dark";
+  public isDarkMode = true;
+
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    // console.log(this.route.snapshot.url[this.route.snapshot.url.length - 1]);
+    this.title = document.title + this.getDetailTitle();
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.title = document.title + this.getDetailTitle();
+    });
+
+    this.user = { username: "" }
+    this.user = JSON.parse(sessionStorage.getItem("user")!);
+  }
+
+  getDetailTitle = () => {
+    if(this.router.url[1]){
+      return " / " + this.router.url[1].toUpperCase() + this.router.url.substring(2);
+    }
+    return "";
   }
 
 }
