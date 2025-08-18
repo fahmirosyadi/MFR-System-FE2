@@ -39,12 +39,17 @@ export class PageComponent {
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.title = document.title + this.getDetailTitle();
-    this.routerSubscription = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
+    let t = localStorage.getItem('title');
+    if(t){
+      this.title = t;
+    }else{
       this.title = document.title + this.getDetailTitle();
-    });
+      this.routerSubscription = this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe((event: NavigationEnd) => {
+        this.title = document.title + this.getDetailTitle();
+      });
+    }
 
     this.user = { username: "" }
     this.user = JSON.parse(sessionStorage.getItem("user")!);
