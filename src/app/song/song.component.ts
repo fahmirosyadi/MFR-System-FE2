@@ -33,10 +33,12 @@ export class SongComponent implements OnInit {
         i++
       }
       song.id = songInd + 1;
-      song.title = this.cs.stripHtml(part[i]);
-      if(part[i + 1] != null){
-        song.key = this.cs.stripHtml(part[i + 1]);
-      }
+      // song.title = this.cs.stripHtml(part[i]);
+      song.title = this.cs.stripHtml(part[i].split("</h1>")[0]);
+      song.key = this.cs.stripHtml(part[i].split("</h1>")[1]);
+      // if(part[i + 1] != null){
+      //   song.key = this.cs.stripHtml(part[i + 1]);
+      // }
       if(part[i + 2] != null){
         song.range = this.cs.stripHtml(part[i + 2]);
         if(song.range.split("-").length > 1){
@@ -66,7 +68,20 @@ export class SongComponent implements OnInit {
         if(title == "Mod"){
           mod = `${title} ${this.cs.stripHtml(chord)}`;
         }else{
-          song.parts.push({title: title, mod: mod, chord: chord});
+          let keys = song.key.split(" | ");
+          console.log(keys);
+          let maleChord = "";
+          let femaleChord = "";
+          keys.forEach((key: string) => {
+            if(key.includes("M: ")){
+              let k = key.replace("M: ", "");
+              maleChord = this.convertToChord(chord, k[0]);
+            }else if(key.includes("F: ")){
+              let k = key.replace("F: ", "");
+              femaleChord = this.convertToChord(chord, k[0]);
+            }
+          });
+          song.parts.push({title: title, mod: mod, chord: chord, maleChord: maleChord, femaleChord: femaleChord});
           mod = "";
         }
             
@@ -101,6 +116,37 @@ export class SongComponent implements OnInit {
 
   chord = (row: any) => {
     this.router.navigate(['/chord/' + row.id]);
+  }
+
+  cspace = [1, 1.5, 2, 2.5, 3, 4, 4.5, 5, 5.5, 6, 6.5, 7];
+  chromatic = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "Bb", "B"];
+
+  getChromatic = (key:any) => {
+    let result = [];
+    let index = this.chromatic.indexOf(key);
+    for(let i = index; i < this.chromatic.length + index; i++){
+      result.push(this.chromatic[i % this.chromatic.length]);
+    }
+    return result;
+  }
+
+  replace(part: any, note: number, key: string) {
+    let c = this.getChromatic(key);
+    let chord = c[this.cspace.indexOf(note)];
+    if([2, 3, 6].includes(note)){
+      chord += "m";
+    }else if([7].includes(note)){
+      chord += "dim";
+    }
+    part = part.replace(new RegExp(note.toString(), 'g'), chord);
+    return part;
+  }
+
+  convertToChord(part: string, key: string) {
+    for(let i = 0; i < 8; i++){
+      part = this.replace(part, i, key);
+    }
+    return part;
   }
 
   ngOnInit(): void {
