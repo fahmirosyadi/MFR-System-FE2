@@ -34,7 +34,7 @@ export const routes: Routes = [
                 component: SongFormComponent, path: 'song/form'
             },
             {
-                component: ChordComponent, path: 'chord'
+                component: ChordComponent, path: 'chord/:id'
             }
         ]
     },

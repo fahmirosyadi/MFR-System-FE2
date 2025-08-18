@@ -3,6 +3,7 @@ import { MyTableComponent } from '../my-table/my-table.component';
 import { SongFormComponent } from '../song-form/song-form.component';
 import { CommonService } from '../services/common.service';
 import { SharedModule } from '../shared.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-song',
@@ -15,7 +16,7 @@ export class SongComponent implements OnInit {
   form = SongFormComponent
   data: any = [];
 
-  constructor(public cs: CommonService) {
+  constructor(public cs: CommonService, public router: Router) {
     
   }
   
@@ -79,6 +80,17 @@ export class SongComponent implements OnInit {
     return songData;
   }
 
+  getSongs(query: string, callback: any) {
+    this.cs.getSheet(query, "Songs", callback);
+  }
+  
+  async getAllSongs() {
+    let result = await this.getSongs("select *", (data: any) => {
+      return data;
+    });
+    return result;
+  }
+
   getData = (callback: any) => {
     this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
       this.data = this.parseSongs(data);
@@ -87,9 +99,15 @@ export class SongComponent implements OnInit {
     });
   }
 
+  chord = (row: any) => {
+    this.router.navigate(['/chord/' + row.id]);
+  }
+
   ngOnInit(): void {
     this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
       this.data = this.parseSongs(data);
+      // Save to local storage for later use
+      localStorage.setItem('songs', JSON.stringify(this.data));
       console.log(this.data);
     });
   }
