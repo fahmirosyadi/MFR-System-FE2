@@ -3,37 +3,38 @@
 </button>
 
 <router-outlet></router-outlet>
-
-<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
-
-  <ng-container matColumnDef="no">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
-      No.
-    </th>
-    <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
-  </ng-container>
-  <div *ngFor="let c of columns">
-    <ng-container matColumnDef="{{c.col}}">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
-        {{generateLabel(c.col)}}
-      </th>
-      <td mat-cell *matCellDef="let element; let i = index"> {{generateValue(element[c.col])}} </td>
-    </ng-container>
-  </div>
-
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by symbol"> Action </th>
-    <td mat-cell *matCellDef="let element">
-      <button class="success" style="margin-right: 5px;" mat-mini-fab aria-label="Example icon button with a delete icon">
-        <mat-icon (click)="openDialog(element)">edit</mat-icon>
-      </button>
-      <button mat-mini-fab aria-label="Example icon button with a delete icon">
-        <mat-icon (click)="delete(element)">delete</mat-icon>
-      </button>
-    </td>
-  </ng-container>
+<div *ngIf="dataSource && dataSource != null">
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
   
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-</table>
+    <ng-container matColumnDef="no">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+        No.
+      </th>
+      <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+    </ng-container>
+    <div *ngFor="let c of columns">
+      <ng-container matColumnDef="{{c.col}}">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+          {{generateLabel(c.col)}}
+        </th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{generateValue(element[c.col])}} </td>
+      </ng-container>
+    </div>
+  
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by symbol"> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <button class="success" style="margin-right: 5px;" mat-mini-fab aria-label="Example icon button with a delete icon">
+          <mat-icon (click)="openDialog(element)">edit</mat-icon>
+        </button>
+        <button mat-mini-fab aria-label="Example icon button with a delete icon">
+          <mat-icon (click)="delete(element)">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClickCb(row)"></tr>
+  
+  </table>
+</div>
