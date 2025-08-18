@@ -36,6 +36,7 @@ export class MyTableComponent extends AbstractComponent {
   @Input() modal = true;
   @Input() cols: string[] = [];
   @Input() getData: any;
+  @Input() rowClickCb: any;
 
   public displayedColumns: string[] = [];
 
