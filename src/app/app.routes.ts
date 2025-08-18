@@ -8,6 +8,8 @@ import { MenuComponent } from './menu/menu.component';
 import { GenreComponent } from './genre/genre.component';
 import { SongComponent } from './song/song.component';
 import { SongFormComponent } from './song-form/song-form.component';
+import { LoginComponent } from './login/login.component';
+import { ChordComponent } from './chord/chord.component';
 
 export const routes: Routes = [
     {
@@ -30,7 +32,13 @@ export const routes: Routes = [
             },
             {
                 component: SongFormComponent, path: 'song/form'
+            },
+            {
+                component: ChordComponent, path: 'chord/:id'
             }
         ]
+    },
+    {
+        component: LoginComponent, path: 'login'
     }
 ];

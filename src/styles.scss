@@ -1,0 +1,102 @@
+@use '@angular/material' as mat;
+
+.theme {
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+	height: 100vh;
+}
+
+.theme-light {
+  --primary-color: #333;
+  --secondary-color: #ffb1c5;
+  --border-color: #333;
+  @include mat.theme((
+    color: (
+			primary: mat.$rose-palette,
+			// tertiary: mat.$rose-palette,
+			theme-type: light,
+		),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+.theme-dark {
+  --primary-color: #333;
+  --secondary-color: #ffb1c5;
+  --border-color: #333;
+  --shadow-border: rgba(255, 255, 255, 0.5);
+  @include mat.theme((
+    color: (
+			primary: mat.$rose-palette,
+      // accent: mat.$amber-palette,
+      // warn: mat.$red-palette,
+			theme-type: dark,
+		),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+.theme-dark .mat-mdc-dialog-container {
+  // border: 1px solid #333;
+  box-shadow: 0px 0px 10px var(--shadow-border);
+  color: var(--mat-sys-on-surface);
+}
+
+// $red-palette
+// $green-palette
+// $blue-palette
+// $yellow-palette
+// $cyan-palette
+// $magenta-palette
+// $orange-palette
+// $chartreuse-palette
+// $spring-green-palette
+// $azure-palette
+// $violet-palette
+// $rose-palette
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.success {
+  background-color: #28a745 !important; /* Bootstrap's success color */
+  // color: #fff;
+}
+
+mat-tree-node {
+  // background-color: #555;
+  border: 1px solid #333;
+  padding-left: 5px;
+}
+
+mat-tree-node button {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.tree-action mat-icon {
+  transition: color 0.2s ease-in-out;
+}
+
+.tree-action mat-icon:hover {
+  color: var(--secondary-color); /* or any other color you want */
+}
+
+.tree-action {
+  opacity: 0.5;
+  transition: opacity 0.2s ease-in-out;
+  border-right: 1px solid white;
+  border-left: 1px solid white;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
+}

@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-abstract',
   templateUrl: './abstract.component.html'
 })
 export class AbstractComponent {
+
+  title = "MFR System/"
 
   generateLabel = (str: any) => {
     if(str){

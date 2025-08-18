@@ -30,6 +30,8 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class AppFormComponent extends AbstractComponent {
 
+  override title = 'Dialog Title';
+
   constructor(
     private cs: CommonService, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
@@ -38,6 +40,7 @@ export class AppFormComponent extends AbstractComponent {
   ){
     super();
     console.log(this.data.columns)
+    this.title = this.data.url[0].toUpperCase() + this.data.url.substring(1);
   }
 
   save = () => {

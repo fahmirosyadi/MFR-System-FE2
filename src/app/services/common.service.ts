@@ -7,6 +7,8 @@ import { baseUrl } from '../../environments/environment';
 })
 export abstract class CommonService {
 
+  public title = "";
+
   constructor(public router: Router) { }
 
   customFetch = (url: any, header: any, method: string, action:any = null) => {
@@ -208,11 +210,40 @@ export abstract class CommonService {
     }
   };
 
+  
+  getSheet(query: string, sheetName: string, callback: any) {
+    this.getSheetData(query, (data: any) => {
+      let result = "";
+      data.forEach((item: any) => {
+        result += item.name;
+      });
+      callback(result);
+    }, sheetName);
+  }
+
   stripHtml(html: any)
   {
     let tmp = document.createElement("DIV");
     tmp.innerHTML = html;
     return (tmp.textContent || tmp.innerText || "").trim();
+  }
+  
+  login = async (data: any) => {
+    let result = await this.post(data, "user/login", 0);
+    if (result.status == false) {
+      alert(result.messages);
+    } else {
+      sessionStorage.setItem("user", JSON.stringify(result.data.user));
+      console.log(result.data.user);
+      sessionStorage.setItem("token", result.data.token);
+      alert(result.messages);
+      this.router.navigate([""]);
+    }
+  }
+
+  logout = () => {
+    sessionStorage.clear();
+    this.router.navigate(["login"]);
   }
 
 }

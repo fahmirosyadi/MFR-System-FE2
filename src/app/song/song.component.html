@@ -1,1 +1,2 @@
-<app-table [cols]="['title','key','range']" [url]="'song'" [form]="form" [modal]="false"></app-table>
+
+  <app-table *ngIf="data" [cols]="['id','title','key','range','parts']" [getData]="getData" [rowClickCb]="chord" [form]="form" [modal]="false"></app-table>
