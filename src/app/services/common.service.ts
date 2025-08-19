@@ -96,6 +96,16 @@ export abstract class CommonService {
     return this.customFetch(url, header, "get");
   }
 
+  getPublic = (url: any) => {
+    let header: any = this.getHeader();
+    return fetch(url)
+      .then(response => response.text())
+      .then(data => {
+        return data;
+      })
+      .catch(error => console.error('Error:', error));
+  }
+
   post = (data: any, url: any, toast = 1) => {
     url = baseUrl + url;
     document.getElementById("loadingData")!.style.visibility = "visible";
