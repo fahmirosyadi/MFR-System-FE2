@@ -1,5 +1,12 @@
 <div class="songs-container">
-    <div class="song" *ngFor="let song of data">
+    <div class="song" *ngFor="let song of tebaklirik">
+        <div>{{song.title}}</div>
+        <div *ngFor="let part of song.parts">
+            <div [innerHTML]="part.title"></div>
+            <div [innerHTML]="part.maleChord"></div>
+        </div>
+    </div>
+    <div class="song" *ngFor="let song of tebaklagu">
         <div>{{song.title}}</div>
         <div *ngFor="let part of song.parts">
             <div [innerHTML]="part.title"></div>

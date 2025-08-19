@@ -10,10 +10,15 @@ import { SharedModule } from '../shared.module';
 export class ChordAllComponent extends AbstractComponent implements OnInit{
   
   data: any = [];
+  tebaklirik: any = [];
+  tebaklagu: any = [];
 
   ngOnInit(): void {
-    let songs = localStorage.getItem('songs');
-    this.data = songs ? JSON.parse(songs) : [];
+    let tebaklirik = localStorage.getItem('tebaklirik');
+    let tebaklagu = localStorage.getItem('tebaklagu');
+    this.tebaklirik = tebaklirik ? JSON.parse(tebaklirik) : [];
+    this.tebaklagu = tebaklagu ? JSON.parse(tebaklagu) : [];
+    
   }
 
 }

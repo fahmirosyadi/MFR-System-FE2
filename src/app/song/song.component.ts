@@ -15,6 +15,8 @@ export class SongComponent implements OnInit {
   
   form = SongFormComponent
   data: any = [];
+  tebaklirik: any = [];
+  tebaklagu: any = [];
 
   constructor(public cs: CommonService, public router: Router) {
     
@@ -34,8 +36,10 @@ export class SongComponent implements OnInit {
       }
       song.id = songInd + 1;
       // song.title = this.cs.stripHtml(part[i]);
-      song.title = this.cs.stripHtml(part[i].split("</h1>")[0]);
-      song.key = this.cs.stripHtml(part[i].split("</h1>")[1]);
+      if(part[i]){
+        song.key = this.cs.stripHtml(part[i].split("</h1>")[1]);
+        song.title = this.cs.stripHtml(part[i].split("</h1>")[0]);
+      }
       // if(part[i + 1] != null){
       //   song.key = this.cs.stripHtml(part[i + 1]);
       // }
@@ -155,14 +159,16 @@ export class SongComponent implements OnInit {
   }
 
   async refresh() {
-    this.data = this.parseSongs(await this.cs.getPublic("songs.html"));
+    this.tebaklirik = this.parseSongs(await this.cs.getPublic("tebaklirik.html"));
+    this.tebaklagu = this.parseSongs(await this.cs.getPublic("tebaklagu.html"));
     // this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
     //   this.data = this.parseSongs(data);
     //   // Save to local storage for later use
     //   localStorage.setItem('songs', JSON.stringify(this.data));
     // });
-    console.log(this.data);
-    localStorage.setItem('songs', JSON.stringify(this.data));
+    localStorage.setItem('tebaklirik', JSON.stringify(this.tebaklirik));
+    localStorage.setItem('tebaklagu', JSON.stringify(this.tebaklagu));
+    console.log(this.tebaklirik);
   }
   
 }
