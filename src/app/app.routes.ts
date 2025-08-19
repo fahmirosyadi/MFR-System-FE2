@@ -10,6 +10,7 @@ import { SongComponent } from './song/song.component';
 import { SongFormComponent } from './song-form/song-form.component';
 import { LoginComponent } from './login/login.component';
 import { ChordComponent } from './chord/chord.component';
+import { ChordAllComponent } from './chord-all/chord-all.component';
 
 export const routes: Routes = [
     {
@@ -40,5 +41,8 @@ export const routes: Routes = [
     },
     {
         component: LoginComponent, path: 'login'
+    },
+    {
+        component: ChordAllComponent, path: 'chord-all'
     }
 ];

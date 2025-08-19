@@ -69,7 +69,6 @@ export class SongComponent implements OnInit {
           mod = `${title} ${this.cs.stripHtml(chord)}`;
         }else{
           let keys = song.key.split(" | ");
-          console.log(keys);
           let maleChord = "";
           let femaleChord = "";
           keys.forEach((key: string) => {
@@ -109,7 +108,6 @@ export class SongComponent implements OnInit {
   getData = (callback: any) => {
     this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
       this.data = this.parseSongs(data);
-      console.log(this.data);
       callback(this.data);
     });
   }
@@ -130,7 +128,7 @@ export class SongComponent implements OnInit {
     return result;
   }
 
-  replace(part: any, note: number, key: string) {
+  replace(part: any, note: any, key: string) {
     let c = this.getChromatic(key);
     let chord = c[this.cspace.indexOf(note)];
     if([2, 3, 6].includes(note)){
@@ -139,6 +137,8 @@ export class SongComponent implements OnInit {
       chord += "dim";
     }
     part = part.replace(new RegExp(note.toString(), 'g'), chord);
+    part = part.replace(new RegExp("mM", 'g'), "");
+    part = part.replace(new RegExp("dimb", 'g'), "b");
     return part;
   }
 
@@ -149,13 +149,20 @@ export class SongComponent implements OnInit {
     return part;
   }
 
-  ngOnInit(): void {
-    this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
-      this.data = this.parseSongs(data);
-      // Save to local storage for later use
-      localStorage.setItem('songs', JSON.stringify(this.data));
-      console.log(this.data);
-    });
+  ngOnInit (): void {
+    this.refresh();
+    
+  }
+
+  async refresh() {
+    this.data = this.parseSongs(await this.cs.getPublic("songs.html"));
+    // this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
+    //   this.data = this.parseSongs(data);
+    //   // Save to local storage for later use
+    //   localStorage.setItem('songs', JSON.stringify(this.data));
+    // });
+    console.log(this.data);
+    localStorage.setItem('songs', JSON.stringify(this.data));
   }
   
 }

@@ -1,0 +1,32 @@
+<div class="songs-container">
+    <div class="song" *ngFor="let song of data">
+        <div>{{song.title}}</div>
+        <div *ngFor="let part of song.parts">
+            <div [innerHTML]="part.title"></div>
+            <div [innerHTML]="part.maleChord"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .songs-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .song {
+        width: 48%; /* adjust the width to fit your needs */
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    @media print {
+        .song {
+            page-break-after: always;
+        }
+        .song:last-child {
+            page-break-after: avoid;
+        }
+    }
+</style>
