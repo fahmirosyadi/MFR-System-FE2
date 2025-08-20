@@ -13,6 +13,7 @@ import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/m
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { DomSanitizer } from '@angular/platform-browser';
 
 // other imports...
 
@@ -42,7 +43,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatCardContent,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
   ],
   exports: [
     CommonModule,

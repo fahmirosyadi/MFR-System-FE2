@@ -84,6 +84,7 @@ export class SongComponent implements OnInit {
               femaleChord = this.convertToChord(chord, k[0]);
             }
           });
+          
           song.parts.push({title: title, mod: mod, chord: chord, maleChord: maleChord, femaleChord: femaleChord});
           mod = "";
         }
@@ -109,11 +110,14 @@ export class SongComponent implements OnInit {
     return result;
   }
 
-  getData = (callback: any) => {
-    this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
-      this.data = this.parseSongs(data);
-      callback(this.data);
-    });
+  getData = async (callback: any) => {
+    // this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
+    //   callback(this.data);
+    // });
+    this.tebaklirik = this.parseSongs(await this.cs.getPublic("tebaklirik.html"));
+    localStorage.setItem('tebaklirik', JSON.stringify(this.tebaklirik));
+    localStorage.setItem('tebaklagu', JSON.stringify(this.tebaklagu));
+    callback(this.tebaklirik);
   }
 
   chord = (row: any) => {
@@ -140,7 +144,7 @@ export class SongComponent implements OnInit {
     }else if([7].includes(note)){
       chord += "dim";
     }
-    part = part.replace(new RegExp(note.toString(), 'g'), chord);
+    part = part.replace(new RegExp('(?<!style=|style:\\s*|\\<[^>]*?)' + note.toString(), 'g'), chord);
     part = part.replace(new RegExp("mM", 'g'), "");
     part = part.replace(new RegExp("dimb", 'g'), "b");
     return part;
@@ -154,20 +158,19 @@ export class SongComponent implements OnInit {
   }
 
   ngOnInit (): void {
-    this.refresh();
+    // this.refresh();
     
   }
 
   async refresh() {
     this.tebaklirik = this.parseSongs(await this.cs.getPublic("tebaklirik.html"));
-    this.tebaklagu = this.parseSongs(await this.cs.getPublic("tebaklagu.html"));
+    // this.tebaklagu = this.parseSongs(await this.cs.getPublic("tebaklagu.html"));
     // this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
     //   this.data = this.parseSongs(data);
     //   // Save to local storage for later use
     //   localStorage.setItem('songs', JSON.stringify(this.data));
     // });
-    localStorage.setItem('tebaklirik', JSON.stringify(this.tebaklirik));
-    localStorage.setItem('tebaklagu', JSON.stringify(this.tebaklagu));
+    
     console.log(this.tebaklirik);
   }
   
