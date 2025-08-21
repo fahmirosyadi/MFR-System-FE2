@@ -1,31 +1,45 @@
 <div class="songs-container">
-    <div class="song" *ngFor="let song of tebaklirik">
+    <!-- <div class="song" *ngFor="let song of tebaklirik">
         <div>{{song.title}}</div>
         <div *ngFor="let part of song.parts">
             <div [innerHTML]="part.title"></div>
             <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.maleChord)"></div>
         </div>
-    </div>
-    <div class="song" *ngFor="let song of tebaklagu">
+    </div> -->
+    <!-- <div class="song" *ngFor="let song of tebaklagu">
         <div>{{song.title}}</div>
         <div *ngFor="let part of song.parts">
             <div [innerHTML]="part.title"></div>
-            <div [innerHTML]="part.chord"></div>
+            <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.maleChord)"></div>
+        </div>
+    </div> -->
+    <div class="song" *ngFor="let song of tebaklagu">
+        <div>{{song.title}}</div>
+        <div class="lyrics-container">
+            <div *ngFor="let part of song.parts">
+            <div [innerHTML]="part.title"></div>
+            <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.maleChord)"></div>
+            </div>
         </div>
     </div>
 </div>
 
 <style>
-    .songs-container {
+    /* .songs-container {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-    }
+    } */
 
     .song {
-        width: 48%; /* adjust the width to fit your needs */
+        width: 96%; /* adjust the width to fit your needs */
         padding: 10px;
         box-sizing: border-box;
+    }
+
+    .lyrics-container {
+        column-count: 2;
+        column-gap: 20px;
     }
 
     @media print {

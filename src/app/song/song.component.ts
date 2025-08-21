@@ -115,6 +115,7 @@ export class SongComponent implements OnInit {
     //   callback(this.data);
     // });
     this.tebaklirik = this.parseSongs(await this.cs.getPublic("tebaklirik.html"));
+    this.tebaklagu = this.parseSongs(await this.cs.getPublic("tebaklagu.html"));
     localStorage.setItem('tebaklirik', JSON.stringify(this.tebaklirik));
     localStorage.setItem('tebaklagu', JSON.stringify(this.tebaklagu));
     callback(this.tebaklirik);
@@ -147,6 +148,7 @@ export class SongComponent implements OnInit {
     part = part.replace(new RegExp('(?<!style=|style:\\s*|\\<[^>]*?)' + note.toString(), 'g'), chord);
     part = part.replace(new RegExp("mM", 'g'), "");
     part = part.replace(new RegExp("dimb", 'g'), "b");
+    part = part.replace(new RegExp("#b", 'g'), "");
     return part;
   }
 
@@ -164,7 +166,7 @@ export class SongComponent implements OnInit {
 
   async refresh() {
     this.tebaklirik = this.parseSongs(await this.cs.getPublic("tebaklirik.html"));
-    // this.tebaklagu = this.parseSongs(await this.cs.getPublic("tebaklagu.html"));
+    this.tebaklagu = this.parseSongs(await this.cs.getPublic("tebaklagu.html"));
     // this.data = this.cs.getSheet("select *", "List Tebak Lirik", (data: any) => {
     //   this.data = this.parseSongs(data);
     //   // Save to local storage for later use
