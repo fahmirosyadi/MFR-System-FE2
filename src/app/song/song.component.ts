@@ -64,8 +64,10 @@ export class SongComponent implements OnInit {
         lines = lines.split("<br>");
         lines.forEach((line: any) => {
           let p = line.replace(/<br>/g, "").trim();
+          p = p.replace(new RegExp("font-size:15px;", 'g'), "font-size:0px;");
+          p = p.replace(new RegExp("<p></p>", 'g'), "");
           if(!p.includes("null") && p != "" && p != " " && p != "&nbsp;"){
-            chord += `<p>${p}</p>`;
+            chord += `<div class='line'>${p}</div>`;
           }
         })
         let title = this.cs.stripHtml(prt[0]);

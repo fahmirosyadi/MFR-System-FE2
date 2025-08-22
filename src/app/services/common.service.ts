@@ -108,7 +108,9 @@ export abstract class CommonService {
 
   post = (data: any, url: any, toast = 1) => {
     url = baseUrl + url;
-    document.getElementById("loadingData")!.style.visibility = "visible";
+    if(document.getElementById("loadingData")){
+      document.getElementById("loadingData")!.style.visibility = "visible";
+    }
     let header: any = this.getHeader();
     let self = this;
     console.log("Post data : ", data);
@@ -143,7 +145,9 @@ export abstract class CommonService {
       //   'warning'
       // )
     }).finally(() => {
-      document.getElementById("loadingData")!.style.visibility = "hidden";
+      if(document.getElementById("loadingData")){
+        document.getElementById("loadingData")!.style.visibility = "hidden";
+      }
     })
   }
 

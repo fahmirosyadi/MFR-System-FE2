@@ -1,46 +1,106 @@
-<div class="songs-container">
-    <!-- <div class="song" *ngFor="let song of tebaklirik">
-        <div>{{song.title}}</div>
-        <div *ngFor="let part of song.parts">
-            <div [innerHTML]="part.title"></div>
-            <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.maleChord)"></div>
-        </div>
-    </div> -->
-    <!-- <div class="song" *ngFor="let song of tebaklagu">
-        <div>{{song.title}}</div>
-        <div *ngFor="let part of song.parts">
-            <div [innerHTML]="part.title"></div>
-            <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.maleChord)"></div>
-        </div>
-    </div> -->
-    <div class="song" *ngFor="let song of tebaklagu">
-        <div>{{song.title}}</div>
-        <div class="lyrics-container">
-            <div *ngFor="let part of song.parts">
-            <div [innerHTML]="part.title"></div>
-            <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.maleChord)"></div>
-            </div>
-        </div>
-    </div>
+<div class="songs-container theme-dark">
+	<!-- <div *ngIf="type != 'split'" class="container" color="primary">
+		<div class="song" *ngFor="let song of tebaklagu">
+			<div><strong>{{song.title}}</strong></div>
+			<div class="lyrics-container">
+				<div *ngFor="let part of song.parts">
+					<h5>[<span [innerHTML]="part.title"></span>]</h5>
+					<div *ngIf="type == 'chord'" [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.maleChord)"></div>
+					<div *ngIf="type == 'numeric'" [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.chord)"></div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<div *ngIf="type == 'split'" class="container" color="primary">
+		<div class="song" *ngFor="let song of data">
+			<div>
+				<div style="padding: 5px;"><strong>{{song.title}}</strong></div>
+				<div class="lyrics-container">
+					<table class="song-table">
+						<tr *ngFor="let part of song.parts" class="part-container">
+							<td>[<span [innerHTML]="part.title"></span>]</td>
+							<td [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.maleChord)"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div>
+				<div style="padding: 5px;"><strong>{{song.title}} {{song.key}}</strong></div>
+				<div class="lyrics-container">
+					<table class="song-table">
+						<tr *ngFor="let part of song.parts" class="part-container">
+							<td>[<span [innerHTML]="part.title"></span>]</td>
+							<td [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.chord)"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- <div class="song" *ngFor="let song of tebaklirik">
+			<div>{{song.title}}</div>
+			<div *ngFor="let part of song.parts">
+					<h5>[<span [innerHTML]="part.title"></span>]</h5>
+					<div [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.maleChord)"></div>
+			</div>
+	</div> -->
+	<!-- <div class="song" *ngFor="let song of tebaklagu">
+			<div>{{song.title}}</div>
+			<div *ngFor="let part of song.parts">
+					<h5>[<span [innerHTML]="part.title"></span>]</h5>
+					<div [innerHTML]="sanitizer.bypassSecurityTrustHtml(part.maleChord)"></div>
+			</div>
+	</div> -->
+	
 </div>
 
 <style>
-    /* .songs-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    } */
+    .container {
+			display: flex;
+			flex-direction: column;
+		}
 
-    .song {
-        width: 96%; /* adjust the width to fit your needs */
+		.song {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 20px;
+		}
+
+		.song > div {
+			width: 48%;
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.lyrics-container {
+			margin-top: 0px;
+		}
+
+		.song-table {
+			border-collapse: collapse;
+			border: 1px solid #ddd;
+			width: 100%;
+		}
+
+		.song-table td {
+			vertical-align: top;
+			border: 1px solid #ddd;
+			padding: 5px;
+		}
+
+    /* .song {
+        width: 96%;
         padding: 10px;
         box-sizing: border-box;
-    }
+    } */
 
-    .lyrics-container {
+    /* .lyrics-container {
         column-count: 2;
         column-gap: 20px;
-    }
+    } */
 
     @media print {
         .song {
