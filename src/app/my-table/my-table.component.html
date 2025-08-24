@@ -34,7 +34,7 @@
     </ng-container>
     
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClickCb(row)"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClickCb && rowClickCb(row)"></tr>
   
   </table>
 </div>
