@@ -42,7 +42,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatCardContent,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatButtonModule,
   ],
   exports: [
     CommonModule,
@@ -60,7 +61,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatCardContent,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatButtonModule,
   ]
 })
 export class SharedModule {}

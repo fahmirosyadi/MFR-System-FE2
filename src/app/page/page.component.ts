@@ -39,7 +39,7 @@ export class PageComponent {
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    let t = localStorage.getItem('title');
+    let t;// = localStorage.getItem('title');
     if(t){
       this.title = t;
     }else{

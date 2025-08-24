@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { AbstractComponent } from '../abstract/abstract.component';
 import { SharedModule } from '../shared.module';
 import { CommonService } from '../services/common.service';
@@ -23,7 +23,7 @@ export class MenuComponent extends AbstractComponent implements OnInit{
 
   public url = "menu";
 
-  constructor(public cs: CommonService, public dialog: MatDialog, private dialogService: DialogService){
+  constructor(public cs: CommonService, public dialog: MatDialog, private dialogService: DialogService, private cdr: ChangeDetectorRef){
     super();
   }
 
@@ -36,8 +36,9 @@ export class MenuComponent extends AbstractComponent implements OnInit{
   hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
 
   async refresh() {
-    let tes = await this.cs.get(this.url);
-    this.dataSource = tes;
+    let data = await this.cs.get(this.url);
+    this.dataSource = data;
+    this.cdr.detectChanges();
   }
 
   async openDialog(data: any){
